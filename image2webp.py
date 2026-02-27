@@ -94,8 +94,15 @@ def main():
     fail_count = 0
     skip_count = 0
 
-    # コマンドライン引数を順に処理（シェルで展開されたパスが来る）
+    # Windowsのコマンドプロンプトは
+    # ワイルドカードを展開してくれないので自力展開
+    import glob
+    extended_args = []
     for arg in sys.argv[1:]:
+        extended_args.extend(glob.glob(arg) or [arg])
+
+    # コマンドライン引数を順に処理（シェルで展開されたパスが来る）
+    for arg in extended_args:
         path = Path(arg)
 
         if path.is_file():

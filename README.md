@@ -1,7 +1,6 @@
 # image2web
 
-Webp以外の画像ファイルをWebpに変換する
-Python
+Webp以外の画像ファイルをWebpに変換するPythonスクリプト
 
 - ver.1
     * Grok に書いてもらったポン出しコード
