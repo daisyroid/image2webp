@@ -1,4 +1,4 @@
-# image2web
+# image2webp
 
 Webp以外の画像ファイルをWebpに変換するPythonスクリプト
 
