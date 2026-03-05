@@ -30,7 +30,7 @@ def convert_to_webp(filepath: str) -> bool:
     # 既にwebpならスキップ
     if path.suffix.lower() == '.webp':
         print(f"スキップ（既にwebp）: {path}")
-        return True
+        return 0, 0, 1  # 成功,失敗,スキップ
 
     output_path = path.with_suffix('.webp')
 
@@ -77,11 +77,11 @@ def convert_to_webp(filepath: str) -> bool:
                 )
 
             print(f"変換完了: {path} → {output_path}")
-            return True
+            return 1, 0, 0    # 成功,失敗,スキップ
 
     except Exception as e:
         print(f"エラー: {path} → {e}")
-        return False
+        return 0, 1, 0    # 成功,失敗,スキップ
 
 
 def main():
@@ -106,12 +106,13 @@ def main():
         path = Path(arg)
 
         if path.is_file():
-            if convert_to_webp(path):
-                success_count += 1
-            else:
-                fail_count += 1
+            success, fail, skip = convert_to_webp(path)
+            success_count += success
+            fail_count += fail
+            skip_count += skip
         elif path.is_dir():
             print(f"ディレクトリはスキップ: {path}")
+            skip_count += 1
         else:
             # ワイルドカードがシェルで展開されなかった場合（稀）
             print(f"見つかりません: {arg}")
